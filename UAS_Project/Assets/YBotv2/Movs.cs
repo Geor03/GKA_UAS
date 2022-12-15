@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Movs : MonoBehaviour
 {
-   public float speed = 5.0f;
-    public float rotationSpeed = 100.0f;
+    float speed = 2.0f;
+    float rotationSpeed = 50.0f;
     Animator anim;
+    public static GameObject controlledBy;
 
     void Awake(){
         anim = this.GetComponent<Animator>();
@@ -14,6 +15,7 @@ public class Movs : MonoBehaviour
     
     void FixedUpdate()
     {
+        if(controlledBy != null)return;
         float translation = Input.GetAxis("Vertical") * speed;
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
         translation *= Time.fixedDeltaTime;
@@ -25,10 +27,6 @@ public class Movs : MonoBehaviour
             anim.SetBool("wac",true);
             anim.SetFloat("Sped", translation);
         }
-        // else if(Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     anim.setBool("isJumping",true);
-        // }
 
         else{
             anim.SetBool("wac",false);
@@ -44,5 +42,6 @@ public class Movs : MonoBehaviour
         else if(Input.GetKeyUp(KeyCode.LeftShift)){
             anim.SetBool("Run",false);
         }
+
     }
 }

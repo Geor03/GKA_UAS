@@ -15,7 +15,7 @@ public class Camfollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rotsped = movs.rotationSpeed;
+        rotsped = 50.0f;
         offsite = transform.position - player.transform.position;
         
     }
