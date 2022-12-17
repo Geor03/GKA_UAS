@@ -24,6 +24,13 @@ public class SitOn : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider seat)
+    {
+        if(seat.CompareTag("Seat") && Input.GetKeyDown(KeyCode.E))
+        {
+            OnMouseDown();
+        }
+    }
     void OnMouseDown()
     {
         if (!sittingOn)
