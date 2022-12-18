@@ -5,6 +5,8 @@ using UnityEngine;
 public class Door1trigger : MonoBehaviour
 {
     public Animator PanelDoor;
+    
+
     private void OnTriggerEnter(Collider other)
     {
         PanelDoor.SetBool("IsOpening", true);
