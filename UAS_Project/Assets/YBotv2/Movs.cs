@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Movs : MonoBehaviour
 {
@@ -16,7 +17,16 @@ public class Movs : MonoBehaviour
     public GameObject Card;
     public Compooter pooter;
     public Text prompt;
-    
+
+    public GameObject Canvas;
+    public GameObject Camera;
+    bool Paused = false;
+
+    void Start()
+    {
+        Canvas.gameObject.SetActive(false);
+    }
+
     void Awake(){
         anim = this.GetComponent<Animator>();
     }
@@ -64,6 +74,47 @@ public class Movs : MonoBehaviour
             anim.SetBool("Run",false);
         }
 
+        if (Input.GetKey(KeyCode.Space))
+        {
+            anim.SetBool("isJumping", true);
+        }
+        else
+        {
+            anim.SetBool("isJumping", false);
+        }
+
+        if (Input.GetKey("escape"))
+        {
+            if (Paused == true)
+            {
+                Time.timeScale = 1.0f;
+                Canvas.gameObject.SetActive(false);
+                Cursor.visible = false;
+                Screen.lockCursor = true;
+                Camera.GetComponent<AudioSource>().Play();
+                Paused = false;
+            }
+            else
+            {
+                Time.timeScale = 0.0f;
+                Canvas.gameObject.SetActive(true);
+                Cursor.visible = true;
+                Screen.lockCursor = false;
+                Camera.GetComponent<AudioSource>().Pause();
+                Paused = true;
+                Resume();
+            }
+        }
+
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1.0f;
+        Canvas.gameObject.SetActive(false);
+        Cursor.visible = false;
+        Screen.lockCursor = true;
+        Camera.GetComponent<AudioSource>().Play();
     }
 
     void OnTriggerEnter(Collider pick)
