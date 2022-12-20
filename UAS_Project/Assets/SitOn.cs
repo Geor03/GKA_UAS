@@ -24,20 +24,22 @@ public class SitOn : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider seat)
-    {
-        if(seat.CompareTag("Seat") && Input.GetKeyDown(KeyCode.E))
-        {
-            OnMouseDown();
-        }
-    }
+    // void OnTriggerEnter(Collider seat)
+    // {
+    //     if(seat.CompareTag("Seat") && Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         OnMouseDown();
+    //     }
+    // }
+
+
     void OnMouseDown()
     {
         if (!sittingOn)
         {
             anim.SetBool("wac", true);
             anim.SetBool("Run", false);
-            anim.SetFloat("Sped", 1.0f);
+            anim.SetFloat("Sped", 0.1f);
             isWalkingTowards = true;
             Movs.controlledBy = this.gameObject;
         }
@@ -53,11 +55,7 @@ public class SitOn : MonoBehaviour
     void AutoWalkingTowards()
     {
         Vector3 targetDir;
-        targetDir = new Vector3(
-                anchor.transform.position.x - character.transform.position.x,
-                0f,
-                anchor.transform.position.z - character.transform.position.z
-            );
+        targetDir = new Vector3(anchor.transform.position.x - character.transform.position.x, 0f, anchor.transform.position.z - character.transform.position.z);
         Quaternion rot = Quaternion.LookRotation(targetDir);
         character.transform.rotation = Quaternion.Slerp(character.transform.rotation, rot, 0.05f);
 

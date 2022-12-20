@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Movs : MonoBehaviour
 {
-    float speed = 2.0f;
+    float speed = 3.0f;
     float rotationSpeed = 100.0f;
     Animator anim;
     public static GameObject controlledBy;
