@@ -90,7 +90,7 @@ public class BallSpawn : MonoBehaviour
     {
         canBalls = true;
         
-         prompt.text = "Press EEEEEEE to balls Press F to pay respects";
+         prompt.text = "Press E to balls Press F to throw balls";
       
         
     }

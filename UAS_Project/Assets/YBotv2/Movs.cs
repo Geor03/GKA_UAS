@@ -75,9 +75,11 @@ public class Movs : MonoBehaviour
             {
                 if(ControlPanel.activeSelf == false){
                      ControlPanel.SetActive(true);
+                     prompt.text = "";
                 }
                 else{
                     ControlPanel.SetActive(false);
+                    prompt.text = "Press E to use the Computer";
                 }
             }
             if(refill == true){
@@ -126,18 +128,17 @@ public class Movs : MonoBehaviour
     {
         if(pick.CompareTag("Kard")){
             canpick = true;
-            prompt.text = "Press EEEEEEE to pick up Card";
+            prompt.text = "Press E to pick up Card";
         }
         if(pick.CompareTag("Pooter") ){
             if(access){
-
-                if(!opensesame){
+                // if(!opensesame){
                     compuse = true;
-                    prompt.text = "Press EEEEEEE to use the Pyuter";
-                }
+                    prompt.text = "Press E to use the Computer";
+                // }
             }
             else if(!access){
-                prompt.text = "No Kard No Service";
+                prompt.text = "No Card No Service";
             }
         }
         if(pick.CompareTag("OxygenButton")){
