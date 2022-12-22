@@ -354,10 +354,15 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/CBT.cs"
 "Assets/Door1trigger.cs"
+"Assets/DoorButtonTrigger.cs"
 "Assets/PauseMenu.cs"
 "Assets/SitOn.cs"
+"Assets/Skripz/BallSpawn.cs"
 "Assets/Skripz/Camfollow.cs"
+"Assets/Skripz/Compooter.cs"
+"Assets/Skripz/Tex.cs"
 "Assets/YBotv2/Movs.cs"
 -langversion:9.0
 
