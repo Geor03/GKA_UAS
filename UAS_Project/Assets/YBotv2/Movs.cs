@@ -24,6 +24,7 @@ public class Movs : MonoBehaviour
     public GameObject Card;
     public GameObject OxygenButton;
     public GameObject ControlPanel;
+    public GameObject Gameover;
     public Compooter pooter;
     public Text prompt;
     public Text Taimu;
@@ -173,7 +174,12 @@ public class Movs : MonoBehaviour
     
     void Oxygen(){
         oksigen -= 1;
-        Oksigen.text = oksigen + "%";
+        if(oksigen <= 0){
+            QuitGame();
+        }
+        else{
+            Oksigen.text = oksigen + "%";
+        }
     }
 
     public void Resume(){
@@ -189,7 +195,13 @@ public class Movs : MonoBehaviour
     }
 
     public void QuitGame(){
-        Debug.Log("Quitting game...");
+        Time.timeScale = 0f;
         Application.Quit();
+        Gameover.SetActive(true);
+        pauseMenuUI.SetActive(false);
+        ControlPanel.SetActive(false);
+
+
+        // EditorApplication.isPlaying = false;
     }
 }
