@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Movs : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Movs : MonoBehaviour
     public Compooter pooter;
     public Text prompt;
 
+     public Text Taimu;
+     public Text Daterino;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     void Start()
@@ -64,6 +67,10 @@ public class Movs : MonoBehaviour
 
     void Update()
     {
+        if(!GameIsPaused){
+            Taimu.text = DateTime.Now.ToLongTimeString();
+            Daterino.text = DateTime.Now.ToString("dd MMMM yyyy");
+        }
         if(Input.GetKeyDown(KeyCode.LeftShift)){
             anim.SetBool("Run", true);
         }
