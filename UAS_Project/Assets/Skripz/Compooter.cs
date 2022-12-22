@@ -13,9 +13,17 @@ public class Compooter : MonoBehaviour
         Debug.Log("Hewwo");
         if(movs.access == true && movs.compuse == true)
         {
-            eltee.color = Color.green;
-            movs.opensesame = true;
+            if(movs.opensesame == false){
+                eltee.color = Color.green;
+                movs.opensesame = true;
+            }
+            else if(movs.opensesame == true){
+                eltee.color = Color.red;
+                movs.opensesame = false;
+            }
+            
         }
+        
         
     }
 }

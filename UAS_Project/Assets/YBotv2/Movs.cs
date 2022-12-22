@@ -17,15 +17,20 @@ public class Movs : MonoBehaviour
     public bool opensesame = false;
     public bool refill = false;
 
+    public Button resume;
+    public Button exit;
+    public Button controlDoor;
+
     public GameObject Card;
     public GameObject OxygenButton;
+    public GameObject ControlPanel;
     public Compooter pooter;
     public Text prompt;
     public Text Taimu;
     public Text Daterino;
     public Text Oksigen;
 
-    float timePassed = 0f;
+    private float timePassed = 0f;
     public int oksigen;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
@@ -33,6 +38,10 @@ public class Movs : MonoBehaviour
     void Start(){
         oksigen = 80;
         Oksigen.text = oksigen+"%";
+        resume.onClick.AddListener(Resume);
+        exit.onClick.AddListener(QuitGame);
+        controlDoor.onClick.AddListener(pooter.Pyuteruse);
+        
     }
 
     void Awake(){
@@ -64,7 +73,12 @@ public class Movs : MonoBehaviour
             }
             if(compuse == true && access == true)
             {
-                pooter.Pyuteruse();
+                if(ControlPanel.activeSelf == false){
+                     ControlPanel.SetActive(true);
+                }
+                else{
+                    ControlPanel.SetActive(false);
+                }
             }
             if(refill == true){
                 oksigen = 100;
@@ -99,13 +113,12 @@ public class Movs : MonoBehaviour
                 Paused();
             }
         }
-
         timePassed += Time.deltaTime;
         if(timePassed > 5f)
         {
             Oxygen();
             timePassed = 0;
-        } 
+        }
     }
 
 
@@ -117,6 +130,7 @@ public class Movs : MonoBehaviour
         }
         if(pick.CompareTag("Pooter") ){
             if(access){
+
                 if(!opensesame){
                     compuse = true;
                     prompt.text = "Press EEEEEEE to use the Pyuter";
