@@ -361,6 +361,8 @@
 "Assets/Skripz/CBT.cs"
 "Assets/Skripz/Compooter.cs"
 "Assets/Skripz/DoorButtonTrigger.cs"
+"Assets/Skripz/Oxygen.cs"
+"Assets/Skripz/OxygenRefill.cs"
 "Assets/Skripz/PanelDoorButton.cs"
 "Assets/Skripz/SitOn.cs"
 "Assets/Skripz/Tex.cs"

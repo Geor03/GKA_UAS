@@ -15,24 +15,31 @@ public class Movs : MonoBehaviour
     public bool access = false;
     public bool compuse = false;
     public bool opensesame = false;
+    public bool refill = false;
+
     public GameObject Card;
+    public GameObject OxygenButton;
     public Compooter pooter;
     public Text prompt;
+    public Text Taimu;
+    public Text Daterino;
+    public Text Oksigen;
 
-     public Text Taimu;
-     public Text Daterino;
+    float timePassed = 0f;
+    public int oksigen;
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
-    void Start()
-    {
+
+    void Start(){
+        oksigen = 80;
+        Oksigen.text = oksigen+"%";
     }
 
     void Awake(){
         anim = this.GetComponent<Animator>();
     }
     
-    void FixedUpdate()
-    {
+    void FixedUpdate(){
         if(controlledBy != null) return;
         float translation = Input.GetAxis("Vertical") * speed;
         float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
@@ -40,8 +47,7 @@ public class Movs : MonoBehaviour
         rotation *= Time.fixedDeltaTime;
         transform.Translate(0,0,translation);
         transform.Rotate(0, rotation, 0);
-        if(translation !=0)
-        {
+        if(translation !=0){
             anim.SetBool("wac",true);
             anim.SetFloat("Sped", translation);
         }
@@ -51,22 +57,23 @@ public class Movs : MonoBehaviour
             anim.SetFloat("Sped",0);
         }
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
+        if(Input.GetKeyDown(KeyCode.E)){
             if(canpick == true)
             {
-            KardPickup52();
+                KardPickup52();
             }
             if(compuse == true && access == true)
             {
-            pooter.Pyuteruse();
+                pooter.Pyuteruse();
             }
-
+            if(refill == true){
+                oksigen = 100;
+                Oksigen.text = oksigen + "%";
+            }
         }
     }
 
-    void Update()
-    {
+    void Update(){
         if(!GameIsPaused){
             Taimu.text = DateTime.Now.ToLongTimeString();
             Daterino.text = DateTime.Now.ToString("dd MMMM yyyy");
@@ -78,12 +85,10 @@ public class Movs : MonoBehaviour
             anim.SetBool("Run",false);
         }
 
-        if (Input.GetKey(KeyCode.Space))
-        {
+        if (Input.GetKey(KeyCode.Space)){
             anim.SetBool("isJumping", true);
         }
-        else
-        {
+        else{
             anim.SetBool("isJumping", false);
         }
 
@@ -95,53 +100,65 @@ public class Movs : MonoBehaviour
             }
         }
 
+        timePassed += Time.deltaTime;
+        if(timePassed > 5f)
+        {
+            Oxygen();
+            timePassed = 0;
+        } 
     }
 
 
     void OnTriggerEnter(Collider pick)
     {
-        if(pick.CompareTag("Kard"))
-        {
+        if(pick.CompareTag("Kard")){
             canpick = true;
             prompt.text = "Press EEEEEEE to pick up Card";
         }
-        if(pick.CompareTag("Pooter") )
-        {
-          if(access)
-          {
-           if(!opensesame)
-           {
-           compuse = true;
-           prompt.text = "Press EEEEEEE to use the Pyuter";
-           }
-          }
-          else if(!access)
-          {
-             prompt.text = "No Kard No Service";
-          }
+        if(pick.CompareTag("Pooter") ){
+            if(access){
+                if(!opensesame){
+                    compuse = true;
+                    prompt.text = "Press EEEEEEE to use the Pyuter";
+                }
+            }
+            else if(!access){
+                prompt.text = "No Kard No Service";
+            }
+        }
+        if(pick.CompareTag("OxygenButton")){
+            refill = true;
+            prompt.text = "Press E to Refill Oxygen";
         }
     }
+
     void OnTriggerExit(Collider pick)
     {
-        if(pick.CompareTag("Kard"))
-        {
+        if(pick.CompareTag("Kard")){
             canpick = false;
             prompt.text = "";
         }
-        if(pick.CompareTag("Pooter"))
-        {
+        if(pick.CompareTag("Pooter")){
            compuse = false;
+           prompt.text = "";
+        }
+        if(pick.CompareTag("OxygenButton")){
+           refill = false;
            prompt.text = "";
         }
     }
 
-    void KardPickup52()
-    {
+    void KardPickup52(){
         Debug.Log("Herro");
-            access = true;
-            Destroy(Card);
-            prompt.text = "";
+        access = true;
+        Destroy(Card);
+        prompt.text = "";
         
+    }
+    
+    void Oxygen(){
+        oksigen -= 1;
+        Oksigen.text = oksigen + "%";
     }
 
     public void Resume(){

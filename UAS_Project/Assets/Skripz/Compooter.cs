@@ -11,7 +11,7 @@ public class Compooter : MonoBehaviour
     public void Pyuteruse()
     {
         Debug.Log("Hewwo");
-            if(movs.access == true && movs.compuse == true)
+        if(movs.access == true && movs.compuse == true)
         {
             eltee.color = Color.green;
             movs.opensesame = true;
