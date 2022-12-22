@@ -18,13 +18,10 @@ public class Movs : MonoBehaviour
     public Compooter pooter;
     public Text prompt;
 
-    public GameObject Canvas;
-    public GameObject Camera;
-    bool Paused = false;
-
+    public static bool GameIsPaused = false;
+    public GameObject pauseMenuUI;
     void Start()
     {
-        Canvas.gameObject.SetActive(false);
     }
 
     void Awake(){
@@ -83,39 +80,16 @@ public class Movs : MonoBehaviour
             anim.SetBool("isJumping", false);
         }
 
-        if (Input.GetKey("escape"))
-        {
-            if (Paused == true)
-            {
-                Time.timeScale = 1.0f;
-                Canvas.gameObject.SetActive(false);
-                Cursor.visible = false;
-                Screen.lockCursor = true;
-                Camera.GetComponent<AudioSource>().Play();
-                Paused = false;
-            }
-            else
-            {
-                Time.timeScale = 0.0f;
-                Canvas.gameObject.SetActive(true);
-                Cursor.visible = true;
-                Screen.lockCursor = false;
-                Camera.GetComponent<AudioSource>().Pause();
-                Paused = true;
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            if(GameIsPaused){
                 Resume();
+            }else{
+                Paused();
             }
         }
 
     }
 
-    public void Resume()
-    {
-        Time.timeScale = 1.0f;
-        Canvas.gameObject.SetActive(false);
-        Cursor.visible = false;
-        Screen.lockCursor = true;
-        Camera.GetComponent<AudioSource>().Play();
-    }
 
     void OnTriggerEnter(Collider pick)
     {
@@ -161,5 +135,22 @@ public class Movs : MonoBehaviour
             Destroy(Card);
             prompt.text = "";
         
+    }
+
+    public void Resume(){
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+    }
+
+    public void Paused(){
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+
+    public void QuitGame(){
+        Debug.Log("Quitting game...");
+        Application.Quit();
     }
 }
