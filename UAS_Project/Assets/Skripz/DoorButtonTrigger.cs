@@ -26,7 +26,7 @@ public class DoorButtonTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         canOpen = true;
-        if(movs.access){
+        if(movs.opensesame){
             if(PanelDoor.GetBool("IsOpening")==false){
                 prompt.text = "Press E to open door";
             }

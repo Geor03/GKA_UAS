@@ -197,11 +197,9 @@ public class Movs : MonoBehaviour
     
     void Oxygen(){
         oksigen -= 1;
-        if(oksigen <= 0){
+        Oksigen.text = oksigen + "%";
+        if(oksigen == 0){
             QuitGame();
-        }
-        else{
-            Oksigen.text = oksigen + "%";
         }
     }
 
@@ -221,7 +219,8 @@ public class Movs : MonoBehaviour
         Time.timeScale = 0f;
         Gameover.SetActive(true);
         pauseMenuUI.SetActive(false);
-        ControlPanel.SetActive(false);
+        ControlPanel.SetActive(false);        
+        GameIsPaused = true;
         Application.Quit();
 
         // EditorApplication.isPlaying = false;

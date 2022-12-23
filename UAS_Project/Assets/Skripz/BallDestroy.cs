@@ -32,20 +32,26 @@ public class BallDestroy : MonoBehaviour
     }
     void EscapeHatch()
     {
-       if(escape)
-       {
-       Hatch.SetBool("GenDone",true);
-       }
-       else if(!escape)
-       {
-        Hatch.SetBool("GenDone",false);
-       }
+        if(escape)
+        {
+            Hatch.SetBool("GenDone",true);
+        }
+        else if(!escape)
+        {
+            Hatch.SetBool("GenDone",false);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         canBalls = true;
-        prompt.text = "Press E to throw balls";
+        if(escape){
+            prompt.text = "Press E to close hatch";
+        }
+        else if (!escape){
+            prompt.text = "Press E to throw balls";
+        }
     }
+
     private void OnTriggerExit(Collider other)
     {
         canBalls = false;
