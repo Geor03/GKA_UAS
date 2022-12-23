@@ -37,7 +37,7 @@ public class Movs : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
 
-    public bool pad = false;
+    public bool pad = true;
     public GameObject lights1;
     public GameObject lights2;
     public GameObject lights3;
@@ -58,6 +58,7 @@ public class Movs : MonoBehaviour
     public Light color; 
 
     void Start(){
+        pad = true;
         oksigen = 80;
         Oksigen.text = oksigen+"%";
         resume.onClick.AddListener(Resume);
@@ -177,6 +178,7 @@ public class Movs : MonoBehaviour
         }
         if(pick.CompareTag("Pooter")){
            compuse = false;
+           ControlPanel.SetActive(false);
            prompt.text = "";
         }
         if(pick.CompareTag("OxygenButton")){
@@ -217,11 +219,10 @@ public class Movs : MonoBehaviour
 
     public void QuitGame(){
         Time.timeScale = 0f;
-        Application.Quit();
         Gameover.SetActive(true);
         pauseMenuUI.SetActive(false);
         ControlPanel.SetActive(false);
-
+        Application.Quit();
 
         // EditorApplication.isPlaying = false;
     }
@@ -231,7 +232,8 @@ public class Movs : MonoBehaviour
         if (access == true && compuse == true)
         {
             if (pad == false)
-            {
+            {               
+                pad = true;
                 lights1.SetActive(true);
                 lights2.SetActive(true);
                 lights3.SetActive(true);
@@ -248,11 +250,13 @@ public class Movs : MonoBehaviour
                 lights14.SetActive(true);
                 lights15.SetActive(true);
                 lights16.SetActive(true);
-                pad = true;
+                Door.SetBool("Power", true);
+                Door.SetBool("Opening", false);
                 color.color = Color.red;
             }
             else if (pad == true)
             {
+                pad = false;
                 lights1.SetActive(false);
                 lights2.SetActive(false);
                 lights3.SetActive(false);
@@ -270,8 +274,8 @@ public class Movs : MonoBehaviour
                 lights15.SetActive(false);
                 lights16.SetActive(false);
                 Door.SetBool("Opening", false);
-                pad = false;
                 color.color = Color.black;
+                Door.SetBool("Power", false);
             }
         }
     }

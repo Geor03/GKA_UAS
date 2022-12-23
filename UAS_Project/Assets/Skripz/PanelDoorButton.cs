@@ -26,14 +26,21 @@ public class PanelDoorButton : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         canOpen = true;
-        if (Door.GetBool("Opening")==false)
-        {
-            prompt.text = "Press E to open door";
+        if(Door.GetBool("Power")==true){
+            if (Door.GetBool("Opening")==false)
+            {
+                prompt.text = "Press E to open door";
+            }
+            else if (Door.GetBool("Opening")==true)
+            {
+                prompt.text = "Press E to close door";
+            }
         }
-        else if (Door.GetBool("Opening")==true)
-        {
-            prompt.text = "Press E to close door";
+        else if(Door.GetBool("Power")==false){
+            prompt.text = "Need power to close/open door";
+
         }
+        
     }
 
     private void OnTriggerExit(Collider other)

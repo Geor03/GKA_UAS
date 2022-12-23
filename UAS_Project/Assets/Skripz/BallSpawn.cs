@@ -24,43 +24,30 @@ public class BallSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(canBalls && Input.GetKeyDown(KeyCode.E))
-       {
-        initbruv();
-         flowBalls = true;
-       }
-       if(canBalls && Input.GetKeyDown(KeyCode.F))
-       {
-        if(!escape){
-        escape = true;
+        if(canBalls && Input.GetKeyDown(KeyCode.E))
+        {
+            initbruv();
+            flowBalls = true;
         }
-        else if(escape){
-        escape = false;
+        if(spawnticks >= 0)
+        {
+            spawnticks -= Time.deltaTime;
         }
-        EscapeHatch();
-        
-       }
-       if(spawnticks >= 0)
-       {
-         spawnticks -= Time.deltaTime;
-       }
-       else if(spawnticks < 0.1f && flowBalls)
-       {
-        Debug.Log("Balls");
-        BigBalls();
-        spawnticks = 0.43f;
+        else if(spawnticks < 0.1f && flowBalls)
+        {
+            Debug.Log("Balls");
+            BigBalls();
+            spawnticks = 0.43f;
        }
 
     }
 
-    void initbruv()
-    {
+    void initbruv(){
         BallSpawnDurat = 1f;
         spawnticks = 1f;
     }
     
-    void BigBalls()
-    {
+    void BigBalls(){
     if(BallSpawnDurat >= 0)
         {
         Object.Instantiate(Balls, SpawnLoc.position, Quaternion.identity);
@@ -73,24 +60,12 @@ public class BallSpawn : MonoBehaviour
     }
     }
 
-    void EscapeHatch()
-    {
-       if(escape)
-       {
-       Hatch.SetBool("GenDone",true);
-       }
-       else if(!escape)
-       {
-        Hatch.SetBool("GenDone",false);
-       }
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
         canBalls = true;
         
-         prompt.text = "Press E to balls Press F to throw balls";
+         prompt.text = "Press E to spawn balls";
       
         
     }
